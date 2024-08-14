@@ -53,13 +53,16 @@ int main(void)
 
     // Various attempts at loading a Font with emojis.
     // I suspect that Noto_Color_Emoji is somehow fundamentally incompatible with MacOS, since the builtin Fontbook application can't load the font either.
-    // So I switched to fonts from the OpenMoji project. There's plenty of options, as far as I can tell, the version with untouched svg graphics should be the most compatible.
+    // I've switched to the OpenMoji project and tried a large variety of their fonts.
+    // As far as I understand, the untouchedsvgz version should be the most compatible one.
+    // But the only font that I can load is the black-glyf version, which doesn't contain any color information and renders a not particularly nice emoji.
     // const Font emojiFont = LoadFontEx("../resources/Noto_Color_Emoji/NotoColorEmoji-Regular.ttf", 32, codepoints, 1);
-    const Font emojiFont = LoadFontEx("../resources/OpenMoji-color-untouchedsvgz.ttf", 32, codepoints, 1);
+    // const Font emojiFont = LoadFontEx("resources/OpenMoji-color-untouchedsvgz.ttf", 32, codepoints, 1);
+    const Font emojiFont = LoadFontEx("resources/OpenMoji-black-glyf.ttf", 32, codepoints, 1);
 
     // for sanity checking, I'm also loading the symbola font used in one of the raylib examples.
     // it contains a selection of emoji, such as the grinning face.
-    const Font symbolaFont = LoadFont("../resources/symbola.fnt");
+    const Font symbolaFont = LoadFont("resources/symbola.fnt");
 
     // for sanity checking, I'm setting up a char array for "😀" twice: once directly with a string literal and once by converting my codepoint.
     const char *emoji = "😀";
@@ -76,11 +79,11 @@ int main(void)
         ClearBackground(RAYWHITE);
         // this works, the emoji is displayed correctly.
         DrawTextEx(symbolaFont, emoji, (Vector2){200, 0}, 50, 1, LIGHTGRAY);
-        DrawTextEx(symbolaFont, emojiFromCodepoints, (Vector2){200, 50}, 50, 1, LIGHTGRAY);
+        // DrawTextEx(symbolaFont, emojiFromCodepoints, (Vector2){200, 50}, 50, 1, LIGHTGRAY);
 
         // this doesn't work
         DrawTextEx(emojiFont, emoji, (Vector2){200, 100}, 50, 1, LIGHTGRAY);
-        DrawTextEx(emojiFont, emojiFromCodepoints, (Vector2){200, 150}, 50, 1, LIGHTGRAY);
+        // DrawTextEx(emojiFont, emojiFromCodepoints, (Vector2){200, 150}, 50, 1, LIGHTGRAY);
         EndDrawing();
     }
     UnloadFont(emojiFont);
